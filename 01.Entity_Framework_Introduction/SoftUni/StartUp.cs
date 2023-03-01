@@ -346,7 +346,25 @@ public class StartUp
                 .AppendLine($"{e.FirstName} {e.LastName} - {e.JobTitle} - (${e.Salary:f2})");
         }
             
-
         return sb.ToString().TrimEnd();
+    }
+
+    //Problem 14:
+    public static string DeleteProjectById(SoftUniContext context)
+    {
+        // Delete all rows from EmployeeProject that refer to Project with Id = 2
+        IQueryable<EmployeeProject> epToDelete = context.EmployeesProjects
+            .Where(ep => ep.ProjectId == 2);
+        context.EmployeesProjects.RemoveRange(epToDelete);
+
+        Project projectToDelete = context.Projects.Find(2)!;
+        context.Projects.Remove(projectToDelete);
+        context.SaveChanges();
+
+        string[] projectNames = context.Projects
+            .Take(10)
+            .Select(p => p.Name)
+            .ToArray();
+        return String.Join(Environment.NewLine, projectNames);
     }
 }
