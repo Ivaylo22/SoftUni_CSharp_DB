@@ -1,4 +1,5 @@
 ﻿using SoftUni.Data;
+using SoftUni.Models;
 using System.Text;
 
 namespace SoftUni;
@@ -8,7 +9,8 @@ public class StartUp
     static void Main(string[] args)
     {
         SoftUniContext dbContext = new SoftUniContext();
-        string result = GetEmployeesFromResearchAndDevelopment(dbContext);
+
+        string result = AddNewAddressToEmployee(dbContext);
 
         Console.WriteLine(result);
     }
@@ -88,5 +90,30 @@ public class StartUp
         }
 
         return sb.ToString().TrimEnd();
+    }
+
+    //Problem 06:
+    public static string AddNewAddressToEmployee(SoftUniContext context)
+    {
+        Address address = new Address
+        {
+            AddressText = "Vitoshka 15",
+            TownId = 4
+        };
+
+        Employee? employee = context.Employees
+            .FirstOrDefault(e => e.LastName == "Nakov");
+
+        employee!.Address = address;
+
+        context.SaveChanges();
+
+        var employeesTop10 = context.Employees
+            .OrderByDescending(e => e.AddressId)
+            .Take(10)
+            .Select(e => e.Address!.AddressText)
+            .ToArray();
+
+        return String.Join(Environment.NewLine, employeesTop10);
     }
 }
