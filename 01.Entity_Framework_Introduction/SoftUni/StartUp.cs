@@ -9,7 +9,7 @@ public class StartUp
     {
         SoftUniContext dbContext = new SoftUniContext();
 
-        string result = GetEmployeesFullInformation(dbContext);
+        string result = GetEmployeesWithSalaryOver50000(dbContext);
 
         Console.WriteLine(result);
     }
@@ -35,6 +35,30 @@ public class StartUp
         foreach (var employee in employees)
         {
             sb.AppendLine($"{employee.FirstName} {employee.LastName} {employee.MiddleName} {employee.JobTitle} {employee.Salary:f2}");
+        }
+
+        return sb.ToString().TrimEnd();
+    }
+
+    //Problem 04:
+    public static string GetEmployeesWithSalaryOver50000(SoftUniContext context)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        var employees = context.Employees
+            .Select(e => new
+            {
+                e.FirstName,
+                e.Salary
+            })
+            .Where(e => e.Salary > 50000)
+            .OrderBy(e => e.FirstName)
+            .ToArray();
+
+        foreach (var employee in employees)
+        {
+            sb
+                .AppendLine($"{employee.FirstName} - {employee.Salary:f2}");
         }
 
         return sb.ToString().TrimEnd();
