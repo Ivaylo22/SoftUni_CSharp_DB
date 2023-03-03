@@ -23,10 +23,8 @@ public class Course
 
     public DateTime StartDate { get; set; }
 
-    [Required]
     public DateTime EndDate { get; set; }
 
-    [Required]
     public decimal Price { get; set; }
 
     public virtual ICollection<StudentCourse> StudentsCourses { get; set; } = null!;

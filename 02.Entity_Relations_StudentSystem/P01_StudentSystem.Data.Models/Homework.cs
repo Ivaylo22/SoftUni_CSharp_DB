@@ -15,14 +15,14 @@ public class Homework
 
     public DateTime SubmissionTime { get; set; }
 
-    [ForeignKey(nameof(Students))]
+    [ForeignKey(nameof(Student))]
     public int StudentId { get; set; }
 
-    public virtual Student Students { get; set; } = null!;
+    public virtual Student Student { get; set; } = null!;
 
-    [ForeignKey(nameof(Courses))]
+    [ForeignKey(nameof(Course))]
     public int CourseId { get; set; }
 
-    public virtual Course Courses { get; set; } = null!;
+    public virtual Course Course { get; set; } = null!;
 
 }

@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "P01_StudentSystem.Data.Models/1.0.0": {
+        "dependencies": {
+          "P01_StudentSystem.Data.Common": "1.0.0"
+        },
+        "runtime": {
+          "P01_StudentSystem.Data.Models.dll": {}
+        }
+      },
+      "P01_StudentSystem.Data.Common/1.0.0": {
+        "runtime": {
+          "P01_StudentSystem.Data.Common.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "P01_StudentSystem.Data.Models/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "P01_StudentSystem.Data.Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

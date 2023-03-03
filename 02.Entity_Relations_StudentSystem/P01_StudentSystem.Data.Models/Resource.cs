@@ -19,9 +19,9 @@ public class Resource
     public ResourceType ResourceType { get; set; }
 
 
-    [ForeignKey(nameof(Courses))]
+    [ForeignKey(nameof(Course))]
     public int CourseId { get; set; }
 
-    public virtual Course Courses { get; set; } = null!;
+    public virtual Course Course { get; set; } = null!;
 
 }

@@ -1,0 +1,12 @@
+C:\Users\User\OneDrive\Desktop\Studying\SoftUni\SoftUni_CSharp_DB\02.Entity_Relations_StudentSystem\P01_StudentSystem.Data.Common\bin\Debug\net6.0\P01_StudentSystem.Data.Common.deps.json
+C:\Users\User\OneDrive\Desktop\Studying\SoftUni\SoftUni_CSharp_DB\02.Entity_Relations_StudentSystem\P01_StudentSystem.Data.Common\bin\Debug\net6.0\P01_StudentSystem.Data.Common.dll
+C:\Users\User\OneDrive\Desktop\Studying\SoftUni\SoftUni_CSharp_DB\02.Entity_Relations_StudentSystem\P01_StudentSystem.Data.Common\bin\Debug\net6.0\P01_StudentSystem.Data.Common.pdb
+C:\Users\User\OneDrive\Desktop\Studying\SoftUni\SoftUni_CSharp_DB\02.Entity_Relations_StudentSystem\P01_StudentSystem.Data.Common\obj\Debug\net6.0\P01_StudentSystem.Data.Common.csproj.AssemblyReference.cache
+C:\Users\User\OneDrive\Desktop\Studying\SoftUni\SoftUni_CSharp_DB\02.Entity_Relations_StudentSystem\P01_StudentSystem.Data.Common\obj\Debug\net6.0\P01_StudentSystem.Data.Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\OneDrive\Desktop\Studying\SoftUni\SoftUni_CSharp_DB\02.Entity_Relations_StudentSystem\P01_StudentSystem.Data.Common\obj\Debug\net6.0\P01_StudentSystem.Data.Common.AssemblyInfoInputs.cache
+C:\Users\User\OneDrive\Desktop\Studying\SoftUni\SoftUni_CSharp_DB\02.Entity_Relations_StudentSystem\P01_StudentSystem.Data.Common\obj\Debug\net6.0\P01_StudentSystem.Data.Common.AssemblyInfo.cs
+C:\Users\User\OneDrive\Desktop\Studying\SoftUni\SoftUni_CSharp_DB\02.Entity_Relations_StudentSystem\P01_StudentSystem.Data.Common\obj\Debug\net6.0\P01_StudentSystem.Data.Common.csproj.CoreCompileInputs.cache
+C:\Users\User\OneDrive\Desktop\Studying\SoftUni\SoftUni_CSharp_DB\02.Entity_Relations_StudentSystem\P01_StudentSystem.Data.Common\obj\Debug\net6.0\P01_StudentSystem.Data.Common.dll
+C:\Users\User\OneDrive\Desktop\Studying\SoftUni\SoftUni_CSharp_DB\02.Entity_Relations_StudentSystem\P01_StudentSystem.Data.Common\obj\Debug\net6.0\refint\P01_StudentSystem.Data.Common.dll
+C:\Users\User\OneDrive\Desktop\Studying\SoftUni\SoftUni_CSharp_DB\02.Entity_Relations_StudentSystem\P01_StudentSystem.Data.Common\obj\Debug\net6.0\P01_StudentSystem.Data.Common.pdb
+C:\Users\User\OneDrive\Desktop\Studying\SoftUni\SoftUni_CSharp_DB\02.Entity_Relations_StudentSystem\P01_StudentSystem.Data.Common\obj\Debug\net6.0\ref\P01_StudentSystem.Data.Common.dll

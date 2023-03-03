@@ -22,11 +22,11 @@ public class StudentSystemContext  : DbContext
 
     public DbSet<Course> Courses { get; set; } = null!;
 
-    public DbSet<Course> Homeworks { get; set; } = null!;
+    public DbSet<Homework> Homeworks { get; set; } = null!;
 
-    public DbSet<Course> Resources { get; set; } = null!;
+    public DbSet<Resource> Resources { get; set; } = null!;
 
-    public DbSet<Course> StudentsCourses { get; set; } = null!;
+    public DbSet<StudentCourse> StudentsCourses { get; set; } = null!;
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
