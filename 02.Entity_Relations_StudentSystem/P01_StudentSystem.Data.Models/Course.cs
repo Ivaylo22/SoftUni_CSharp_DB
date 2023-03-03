@@ -19,6 +19,7 @@ public class Course
     [MaxLength(ValidationConstants.MaxCourseNameLength)]
     public string Name { get; set; } = null!;
 
+    [MaxLength(ValidationConstants.MaxCourseDescriptionLength)]
     public string? Description  { get; set; }
 
     public DateTime StartDate { get; set; }

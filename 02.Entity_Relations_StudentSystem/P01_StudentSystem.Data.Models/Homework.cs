@@ -2,13 +2,16 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 using Enums;
+using Common;
 
 public class Homework
 {
     [Key]
     public int HomeworkId { get; set; }
 
+    [MaxLength(ValidationConstants.MaxHomeworkContentLength)]
     public string Content { get; set; } = null!;
 
     public ContentType ContentType { get; set; }

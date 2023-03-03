@@ -14,6 +14,7 @@ public class Resource
     [MaxLength(ValidationConstants.MaxResourseNameLength)]
     public string Name { get; set; } = null!;
 
+    [MaxLength(ValidationConstants.MaxResourceUrlLength)]
     public string Url { get; set; } = null!;
 
     public ResourceType ResourceType { get; set; }

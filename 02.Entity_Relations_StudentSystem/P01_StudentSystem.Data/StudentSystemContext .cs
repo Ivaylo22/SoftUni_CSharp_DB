@@ -48,6 +48,20 @@ public class StudentSystemContext  : DbContext
                 .HasColumnType("varchar");
         });
 
+        modelBuilder.Entity<Resource>(entity =>
+        {
+            entity
+                .Property(s => s.Url)
+                .HasColumnType("varchar");
+        });
+
+        modelBuilder.Entity<Homework>(entity =>
+        {
+            entity
+                .Property(h => h.Content)
+                .HasColumnType("varchar");
+        });
+
 
         modelBuilder.Entity<StudentCourse>(entity =>
         {
