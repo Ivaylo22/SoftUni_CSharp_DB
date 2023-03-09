@@ -9,7 +9,7 @@ using Enums;
 public class Resource
 {
     [Key]
-    public int ResourseId { get; set; }
+    public int ResourceId { get; set; }
 
     [MaxLength(ValidationConstants.MaxResourseNameLength)]
     public string Name { get; set; } = null!;
