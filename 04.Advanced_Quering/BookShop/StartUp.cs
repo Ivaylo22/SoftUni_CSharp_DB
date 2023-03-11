@@ -3,6 +3,7 @@
     using BookShop.Models.Enums;
     using Data;
     using Initializer;
+    using System.Globalization;
     using System.Linq;
     using System.Text;
 
@@ -15,7 +16,7 @@
 
             var input = Console.ReadLine();
 
-            Console.WriteLine(GetBooksByCategory(dbContext, input));
+            Console.WriteLine(GetBooksReleasedBefore(dbContext, input));
             
         }
 
@@ -98,6 +99,31 @@
                 .ToArray();
 
             return String.Join(Environment.NewLine, books);
+        }
+
+        public static string GetBooksReleasedBefore(BookShopContext context, string date)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            DateTime fullDate = DateTime.ParseExact(date, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            var books = context.Books
+                .Where(b => b.ReleaseDate.Value < fullDate)
+                .OrderByDescending(b => b.ReleaseDate)
+                .Select(b => new
+                {
+                    b.Title,
+                    b.EditionType,
+                    b.Price
+                })
+                .ToArray();
+
+            foreach (var b in books)
+            {
+                sb
+                    .AppendLine($"{b.Title} - {b.EditionType} - ${b.Price:f2}");
+            }
+
+            return sb.ToString().Trim();
         }
     }
 }
