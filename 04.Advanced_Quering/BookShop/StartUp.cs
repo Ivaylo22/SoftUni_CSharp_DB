@@ -16,7 +16,7 @@
 
             //var input = int.Parse(Console.ReadLine());
 
-            Console.WriteLine(GetTotalProfitByCategory(dbContext));
+            Console.WriteLine(GetMostRecentBooks(dbContext));
             
         }
 
@@ -212,6 +212,47 @@
 
             return String.Join(Environment.NewLine, categories.Select(c => $"{c.Name} ${c.Profit:f2}"));
         }
+
+        public static string GetMostRecentBooks(BookShopContext context)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            var categories = context.Categories
+                .OrderBy(c => c.Name)
+                .Select(c => new
+                {
+                    c.Name,
+                    Books = c.CategoryBooks
+                            .Select(cb => new
+                            {
+                                cb.Book.Title,
+                                cb.Book.ReleaseDate
+                            })
+                            .OrderByDescending(cb => cb.ReleaseDate)
+                            .Take(3)
+                            .ToArray()
+                })
+                .ToArray();
+
+            foreach (var c in categories)
+            {
+                sb
+                    .AppendLine($"--{c.Name}");
+
+                foreach (var b in c.Books)
+                {
+                    sb
+                        .AppendLine($"{b.Title} ({b.ReleaseDate.Value.Year})");
+                }
+            }
+
+            return sb.ToString().Trim();
+        }
+
+
+
+
+        
     }
 }
 
