@@ -14,9 +14,9 @@
             using var dbContext = new BookShopContext();
             //DbInitializer.ResetDatabase(dbContext);
 
-            var input = int.Parse(Console.ReadLine());
+            //var input = int.Parse(Console.ReadLine());
 
-            Console.WriteLine(CountBooks(dbContext, input));
+            Console.WriteLine(CountCopiesByAuthor(dbContext));
             
         }
 
@@ -180,6 +180,21 @@
                 .ToArray();
 
             return books.Length;
+        }
+
+        public static string CountCopiesByAuthor(BookShopContext context)
+        {
+            var authors = context.Authors
+                .Select(a => new
+                {
+                    FullName = $"{a.FirstName} {a.LastName}",
+                    CountBooks = a.Books.Sum(b => b.Copies)
+                })
+                .OrderByDescending(a => a.CountBooks)
+                .ToArray();
+
+            string result = string.Join(Environment.NewLine, authors.Select(a => $"{a.FullName} - {a.CountBooks}"));
+            return result;
         }
     }
 }
