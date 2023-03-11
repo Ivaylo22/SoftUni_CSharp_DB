@@ -249,10 +249,21 @@
             return sb.ToString().Trim();
         }
 
+        public static void IncreasePrices(BookShopContext context)
+        {
+            var books = context.Books
+                .Where(b => b.ReleaseDate.Value.Year < 2010 &&
+                            b.ReleaseDate.HasValue)
+                .ToArray();
 
+            foreach (var book in books)
+            {
+                book.Price += 5;
+            }
 
+            context.SaveChanges();
+        }
 
-        
     }
 }
 
