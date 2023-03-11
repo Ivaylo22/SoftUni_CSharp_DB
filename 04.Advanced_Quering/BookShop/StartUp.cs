@@ -65,7 +65,7 @@
 
             foreach (var book in books)
             {
-                sb.AppendLine($"{book.Title} - ${book.Price}");
+                sb.AppendLine($"{book.Title} - ${book.Price:f2}");
             }
 
             return sb.ToString().Trim();
