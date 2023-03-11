@@ -16,7 +16,7 @@
 
             var input = Console.ReadLine();
 
-            Console.WriteLine(GetBookTitlesContaining(dbContext, input));
+            Console.WriteLine(GetBooksByAuthor(dbContext, input));
             
         }
 
@@ -148,6 +148,29 @@
                 .ToArray();
 
             return String.Join(Environment.NewLine, books);
+        }
+
+        public static string GetBooksByAuthor(BookShopContext context, string input)
+        {
+            var sb = new StringBuilder();
+
+            var books = context.Books
+                .Where(b => b.Author.LastName.ToLower().StartsWith(input.ToLower()))
+                .OrderBy(b => b.BookId)
+                .Select(b => new
+                {
+                    b.Title,
+                    Author = $"{b.Author.FirstName} {b.Author.LastName}"
+                })
+                .ToArray();
+
+            foreach (var b in books)
+            {
+                sb
+                    .AppendLine($"{b.Title} ({b.Author})");
+            }
+
+            return sb.ToString().Trim();
         }
     }
 }
