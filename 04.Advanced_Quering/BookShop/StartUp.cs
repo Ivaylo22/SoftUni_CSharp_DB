@@ -3,6 +3,7 @@
     using BookShop.Models.Enums;
     using Data;
     using Initializer;
+    using System.Linq;
     using System.Text;
 
     public class StartUp
@@ -12,9 +13,9 @@
             using var dbContext = new BookShopContext();
             //DbInitializer.ResetDatabase(dbContext);
 
-            int input = int.Parse(Console.ReadLine());
+            var input = Console.ReadLine();
 
-            Console.WriteLine(GetBooksNotReleasedIn(dbContext, input));
+            Console.WriteLine(GetBooksByCategory(dbContext, input));
             
         }
 
@@ -76,6 +77,23 @@
             var books = context.Books
                 .Where(b => b.ReleaseDate.Value.Year != year)
                 .OrderBy(b => b.BookId)
+                .Select(b => b.Title)
+                .ToArray();
+
+            return String.Join(Environment.NewLine, books);
+        }
+
+        public static string GetBooksByCategory(BookShopContext context, string input)
+        {
+            var categories = input
+                .Split(" ", StringSplitOptions.RemoveEmptyEntries)
+                .Select(b => b.ToLower())
+                .ToArray();
+
+            var books = context.Books
+                .Where(b => b.BookCategories
+                    .Any(bc => categories.Contains(bc.Category.Name.ToLower())))
+                .OrderBy(b => b.Title)
                 .Select(b => b.Title)
                 .ToArray();
 
