@@ -8,7 +8,13 @@ public class ProductShopProfile : Profile
 {
     public ProductShopProfile() 
     {
+        //Users
         CreateMap<ImportUserDto, User>();
+
+        //Products
         CreateMap<ImportProductDto, Product>();
+
+        //Categories
+        CreateMap<ImportCategoryDto, Category>();
     }
 }
