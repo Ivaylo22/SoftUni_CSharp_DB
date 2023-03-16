@@ -10,7 +10,7 @@ public class ImportProductDto
 {
     public string Name { get; set; } = null!;
 
-    public decimal Prica { get; set; }
+    public decimal Price { get; set; }
 
     public int SellerId { get; set; }
 

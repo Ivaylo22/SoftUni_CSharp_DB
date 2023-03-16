@@ -16,5 +16,8 @@ public class ProductShopProfile : Profile
 
         //Categories
         CreateMap<ImportCategoryDto, Category>();
+
+        //ProductsCategories
+        CreateMap<ImportCategoryProductDto, CategoryProduct>();
     }
 }
