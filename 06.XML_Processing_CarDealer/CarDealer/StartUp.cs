@@ -13,9 +13,9 @@ public class StartUp
     {
         using CarDealerContext context = new CarDealerContext();
         string inputXml =
-            File.ReadAllText("../../../Datasets/suppliers.xml");
+            File.ReadAllText("../../../Datasets/parts.xml");
 
-        string result = ImportSuppliers(context, inputXml);
+        string result = ImportParts(context, inputXml);
         Console.WriteLine(result);
 
     }
@@ -45,29 +45,34 @@ public class StartUp
         return $"Successfully imported {validSuppliers.Count}";
     }
 
-    //public static string ImportParts(CarDealerContext context, string inputXml)
-    //{
-    //    IMapper mapper = InitializeAutoMapper();
-    //    XmlHelper xmlHelper = new XmlHelper();
+    public static string ImportParts(CarDealerContext context, string inputXml)
+    {
+        IMapper mapper = InitializeAutoMapper();
+        XmlHelper xmlHelper = new XmlHelper();
 
-    //    ImportPartDto[] partDtos = xmlHelper
-    //        .Deserialize<ImportPartDto[]>(inputXml, "Parts");
+        ImportPartDto[] partDtos = xmlHelper
+            .Deserialize<ImportPartDto[]>(inputXml, "Parts");
 
-    //    ICollection<Part> validParts = new HashSet<Part>();
+        ICollection<Part> validParts = new HashSet<Part>();
 
-    //    foreach (var dto in partDtos)
-    //    {
-    //        if(!context.Suppliers.Any(s => s.Id == dto.SupplierId))
-    //        {
-    //            continue;
-    //        }
+        foreach (var dto in partDtos)
+        {
+            if (!context.Suppliers.Any(s => s.Id == dto.SupplierId))
+            {
+                continue;
+            }
 
-    //        Part part = mapper.Map<Part>(dto);
-    //        validParts.Add(part);
-    //    }
+            Part part = mapper.Map<Part>(dto);
+            validParts.Add(part);
+        }
 
+        context.Parts
+            .AddRange(validParts);
+        context.SaveChanges();
 
-    //}
+        return $"Successfully imported {validParts.Count}";
+
+    }
 
 
     private static IMapper InitializeAutoMapper()
