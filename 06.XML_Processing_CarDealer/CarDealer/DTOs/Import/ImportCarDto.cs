@@ -12,7 +12,7 @@ public class ImportCarDto
     public string Model { get; set; } = null!;
 
     [XmlElement("traveledDistance")]
-    public long TravelledDistance { get; set; }
+    public long TraveledDistance { get; set; }
 
     [XmlArray("parts")]
     public ImportCarPartDto[] Parts { get; set; } = null!;
