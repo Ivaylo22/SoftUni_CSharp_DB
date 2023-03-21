@@ -17,7 +17,7 @@ public class StartUp
         //string inputXml =
         //    File.ReadAllText("../../../Datasets/sales.xml");
 
-        string result = GetTotalSalesByCustomer(context);
+        string result = GetSalesWithAppliedDiscount(context);
         Console.WriteLine(result);
 
     }
@@ -267,6 +267,30 @@ public class StartUp
             .ToArray();
 
         return xmlHelper.Serialize<TotalSalesByCustomerDto[]>(totalSalesDtos, "customers");
+    }
+
+    public static string GetSalesWithAppliedDiscount(CarDealerContext context)
+    {
+        XmlHelper xmlHelper = new XmlHelper();
+
+        SalesWithAppliedDiscountDto[] salesDtos = context
+            .Sales
+            .Select(s => new SalesWithAppliedDiscountDto()
+            {
+                SingleCar = new SingleCar()
+                {
+                    Make = s.Car.Make,
+                    Model = s.Car.Model,
+                    TraveledDistance = s.Car.TraveledDistance
+                },
+                Discount = (int)s.Discount,
+                CustomerName = s.Customer.Name,
+                Price = s.Car.PartsCars.Sum(p => p.Part.Price),
+                PriceWithDiscount = Math.Round((double)(s.Car.PartsCars.Sum(p => p.Part.Price) * (1 - (s.Discount / 100))), 4)
+            })
+            .ToArray();
+
+        return xmlHelper.Serialize<SalesWithAppliedDiscountDto[]>(salesDtos, "sales");
     }
 
 
