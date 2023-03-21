@@ -8,8 +8,15 @@ namespace CarDealer
     {
         public CarDealerProfile()
         {
+            //Supplier
             CreateMap<ImportSupplierDto, Supplier>();
+
+            //Part
             CreateMap<ImportPartDto, Part>();
+
+            //Car
+            CreateMap<ImportCarDto, Car>()
+                .ForSourceMember(s => s.Parts, opt => opt.DoNotValidate());
         }
     }
 }
