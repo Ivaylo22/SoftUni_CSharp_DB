@@ -13,9 +13,9 @@ public class StartUp
     {
         using CarDealerContext context = new CarDealerContext();
         string inputXml =
-            File.ReadAllText("../../../Datasets/customers.xml");
+            File.ReadAllText("../../../Datasets/sales.xml");
 
-        string result = ImportCustomers(context, inputXml);
+        string result = ImportSales(context, inputXml);
         Console.WriteLine(result);
 
     }
@@ -129,6 +129,34 @@ public class StartUp
         context.SaveChanges();
 
         return $"Successfully imported {validCustomers.Count}";
+    }
+
+    public static string ImportSales(CarDealerContext context, string inputXml)
+    {
+        IMapper mapper = InitializeAutoMapper();
+        XmlHelper xmlHelper = new XmlHelper();
+
+        ImportSaleDto[] saleDtos = xmlHelper
+            .Deserialize<ImportSaleDto[]>(inputXml, "Sales");
+
+        ICollection<Sale> validSales = new HashSet<Sale>();
+
+        foreach (var dto in saleDtos)
+        {
+            if(!context.Cars.Any(c => c.Id == dto.CarId))
+            {
+                continue;
+            }
+
+            Sale sale = mapper.Map<Sale>(dto);
+
+            validSales.Add(sale);
+        }
+
+        context.Sales.AddRange(validSales);
+        context.SaveChanges();
+
+        return $"Successfully imported {validSales.Count}";
     }
 
 

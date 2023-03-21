@@ -20,9 +20,12 @@ namespace CarDealer
                 .ForSourceMember(s => s.Parts, opt => opt.DoNotValidate());
 
             //Customer
-            this.CreateMap<ImportCustomerDto, Customer>()
+            CreateMap<ImportCustomerDto, Customer>()
                 .ForMember(d => d.BirthDate,
                     opt => opt.MapFrom(s => DateTime.Parse(s.BirthDate, CultureInfo.InvariantCulture)));
+
+            //Sales
+            CreateMap<ImportSaleDto, Sale>();
         }
     }
 }
