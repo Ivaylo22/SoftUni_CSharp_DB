@@ -17,7 +17,7 @@ public class StartUp
         //string inputXml =
         //    File.ReadAllText("../../../Datasets/sales.xml");
 
-        string result = GetCarsFromMakeBmw(context);
+        string result = GetTotalSalesByCustomer(context);
         Console.WriteLine(result);
 
     }
@@ -196,6 +196,77 @@ public class StartUp
             .ToArray();
 
         return xmlHelper.Serialize(bmwCars, "cars");
+    }
+
+    public static string GetLocalSuppliers(CarDealerContext context)
+    {
+        string ret = "";
+        XmlHelper xmlHelper = new XmlHelper();
+
+        // Not needed for manual mapping.
+        IMapper mapper = new Mapper(new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<CarDealerProfile>();
+        }));
+
+        ExportLocalSupplierDto[] exportLocalSupplierDTOs = context.Suppliers
+            .Where(s => s.IsImporter == false)
+            .ProjectTo<ExportLocalSupplierDto>(mapper.ConfigurationProvider)
+            .ToArray();
+
+        // Helper class from Utilities folder.
+        ret = xmlHelper.Serialize<ExportLocalSupplierDto[]>(exportLocalSupplierDTOs, "suppliers");
+
+
+        return ret;
+    }
+
+    public static string GetCarsWithTheirListOfParts(CarDealerContext context)
+    {
+        IMapper mapper = InitializeAutoMapper();
+        XmlHelper xmlHelper = new XmlHelper();
+
+        ExportCarWithPartsDto[] carsWithParts = context
+            .Cars
+            .OrderByDescending(c => c.TraveledDistance)
+            .ThenBy(c => c.Model)
+            .Take(5)
+            .ProjectTo<ExportCarWithPartsDto>(mapper.ConfigurationProvider)
+            .ToArray();
+
+        return xmlHelper.Serialize(carsWithParts, "cars");
+    }
+
+    public static string GetTotalSalesByCustomer(CarDealerContext context)
+    {
+        XmlHelper xmlHelper = new XmlHelper();
+
+        var tempDto = context.Customers
+            .Where(c => c.Sales.Any())
+            .Select(c => new
+            {
+                FullName = c.Name,
+                BoughtCars = c.Sales.Count(),
+                SalesInfo = c.Sales.Select(s => new
+                {
+                    Prices = c.IsYoungDriver
+                        ? s.Car.PartsCars.Sum(p => Math.Round((double)p.Part.Price * 0.95, 2))
+                        : s.Car.PartsCars.Sum(p => (double)p.Part.Price)
+                }).ToArray(),
+            })
+            .ToArray();
+
+        TotalSalesByCustomerDto[] totalSalesDtos = tempDto
+            .OrderByDescending(t => t.SalesInfo.Sum(s => s.Prices))
+            .Select(t => new TotalSalesByCustomerDto()
+            {
+                FullName = t.FullName,
+                BoughtCars = t.BoughtCars,
+                SpentMoney = t.SalesInfo.Sum(s => s.Prices).ToString("f2")
+            })
+            .ToArray();
+
+        return xmlHelper.Serialize<TotalSalesByCustomerDto[]>(totalSalesDtos, "customers");
     }
 
 

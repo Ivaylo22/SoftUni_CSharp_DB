@@ -12,15 +12,26 @@ namespace CarDealer
         {
             //Supplier
             CreateMap<ImportSupplierDto, Supplier>();
+            this.CreateMap<Supplier, ExportLocalSupplierDto>()
+                .ForMember(dst => dst.COUNT,
+                    opt => opt.MapFrom(src => src.Parts.Count));
 
             //Part
             CreateMap<ImportPartDto, Part>();
+            CreateMap<Part, ExportCarPartDto>();
 
             //Car
             CreateMap<ImportCarDto, Car>()
                 .ForSourceMember(s => s.Parts, opt => opt.DoNotValidate());
             CreateMap<Car, ExportCarDto>();
-            this.CreateMap<Car, ExportBmwCarDto>();
+            CreateMap<Car, ExportBmwCarDto>();
+            CreateMap<Car, ExportCarWithPartsDto>()
+                .ForMember(d => d.Parts,
+                    opt => opt.MapFrom(s =>
+                        s.PartsCars
+                            .Select(pc => pc.Part)
+                            .OrderByDescending(p => p.Price)
+                            .ToArray()));
 
             //Customer
             CreateMap<ImportCustomerDto, Customer>()
