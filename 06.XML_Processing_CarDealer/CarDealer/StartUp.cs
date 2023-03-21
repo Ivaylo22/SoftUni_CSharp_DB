@@ -17,7 +17,7 @@ public class StartUp
         //string inputXml =
         //    File.ReadAllText("../../../Datasets/sales.xml");
 
-        string result = GetCarsWithDistance(context);
+        string result = GetCarsFromMakeBmw(context);
         Console.WriteLine(result);
 
     }
@@ -181,6 +181,21 @@ public class StartUp
 
 
         return ret;
+    }
+
+    public static string GetCarsFromMakeBmw(CarDealerContext context)
+    {
+        IMapper mapper = InitializeAutoMapper();
+        XmlHelper xmlHelper = new XmlHelper();
+
+        ExportBmwCarDto[] bmwCars = context.Cars
+            .Where(c => c.Make.ToUpper() == "BMW")
+            .OrderBy(c => c.Model)
+            .ThenByDescending(c => c.TraveledDistance)
+            .ProjectTo<ExportBmwCarDto>(mapper.ConfigurationProvider)
+            .ToArray();
+
+        return xmlHelper.Serialize(bmwCars, "cars");
     }
 
 
