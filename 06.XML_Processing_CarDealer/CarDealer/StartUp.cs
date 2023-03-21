@@ -45,6 +45,30 @@ public class StartUp
         return $"Successfully imported {validSuppliers.Count}";
     }
 
+    //public static string ImportParts(CarDealerContext context, string inputXml)
+    //{
+    //    IMapper mapper = InitializeAutoMapper();
+    //    XmlHelper xmlHelper = new XmlHelper();
+
+    //    ImportPartDto[] partDtos = xmlHelper
+    //        .Deserialize<ImportPartDto[]>(inputXml, "Parts");
+
+    //    ICollection<Part> validParts = new HashSet<Part>();
+
+    //    foreach (var dto in partDtos)
+    //    {
+    //        if(!context.Suppliers.Any(s => s.Id == dto.SupplierId))
+    //        {
+    //            continue;
+    //        }
+
+    //        Part part = mapper.Map<Part>(dto);
+    //        validParts.Add(part);
+    //    }
+
+
+    //}
+
 
     private static IMapper InitializeAutoMapper()
            => new Mapper(new MapperConfiguration(cfg =>
